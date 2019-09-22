@@ -3,17 +3,18 @@ import {View, Text, StyleSheet, Button} from 'react-native';
 
 const Todo = ({todo, toggleComplete, index, remove}) => (
   <View style={styles.todo}>
-    <Text
-      style={{textDecorationLine: todo.isCompleted ? 'line-through' : 'none'}}>
-      {todo.text}
-    </Text>
-    {!todo.isComplete && (
+    <View>
+      <Text
+        style={{
+          textDecorationLine: todo.isCompleted ? 'line-through' : 'none',
+        }}>
+        {todo.text}
+      </Text>
+    </View>
+    <View style={styles.buttons}>
       <Button title="✓" onPress={() => toggleComplete(index)} />
-    )}
-    {todo.isComplete && (
-      <Button title="✓" onPress={() => toggleComplete(index)} />
-    )}
-    <Button title="X" onPress={() => remove(index)} />
+      <Button title="X" onPress={() => remove(index)} />
+    </View>
   </View>
 );
 
@@ -29,5 +30,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  buttons: {
+    display: 'flex',
+    flexDirection: 'row',
   },
 });
