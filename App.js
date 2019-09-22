@@ -6,8 +6,9 @@
  * @flow
  */
 
-import React, {Fragment} from 'react';
-import List from './src/List/List.js';
+import React, {Fragment, useState} from 'react';
+import ToDo from './src/Schema/ToDo';
+import Add from './src/Add/Add';
 import {
   SafeAreaView,
   StyleSheet,
@@ -17,59 +18,50 @@ import {
   StatusBar,
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Header, Colors} from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
+  const [todos, setTodos] = useState([
+    {text: 'Learn about React', isCompleted: false},
+    {text: 'Meet friend for lunch', isCompleted: true},
+    {text: 'Build really cool todo app', isCompleted: false},
+  ]);
+
+  const addToDo = input => {
+    setTodos([...todos, {text: input, isCompleted: false}]);
+  };
+
+  const toggleComplete = index => {
+    const current = [...todos];
+    if (current[index].isCompleted) {
+      current[index].isCompleted = false;
+    } else {
+      current[index].isCompleted = true;
+    }
+    setTodos(current);
+  };
+
   return (
     <Fragment>
       <StatusBar barStyle="dark-content" />
-      {/* <List /> */}
 
-      <SafeAreaView>
+      <SafeAreaView style={styles.body}>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          <List />
-          {/* <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
+          <View style={styles.app}>
+            <View style={styles.todoList}>
+              {todos.map((todo, index) => (
+                <ToDo
+                  key={index}
+                  index={index}
+                  todo={todo}
+                  toggleComplete={toggleComplete}
+                />
+              ))}
+              <Add addToDo={addToDo} />
             </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits. Hello hello
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View> */}
+          </View>
         </ScrollView>
       </SafeAreaView>
     </Fragment>
@@ -78,40 +70,20 @@ const App = () => {
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
+    backgroundColor: '#209cee',
   },
   body: {
-    backgroundColor: Colors.white,
+    backgroundColor: '#209cee',
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  app: {
+    backgroundColor: '#209cee',
+    padding: '10%',
+    paddingTop: '50%',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  todoList: {
+    backgroundColor: '#e8e8e8',
+    borderRadius: 4,
+    padding: '5%',
   },
 });
 
