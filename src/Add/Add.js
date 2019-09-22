@@ -29,5 +29,6 @@ export default AddForm;
 const styles = StyleSheet.create({
   input: {
     backgroundColor: 'white',
+    height: 30,
   },
 });

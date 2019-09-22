@@ -1,13 +1,19 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 
-const Todo = ({todo, toggleComplete, index}) => (
+const Todo = ({todo, toggleComplete, index, remove}) => (
   <View style={styles.todo}>
     <Text
       style={{textDecorationLine: todo.isCompleted ? 'line-through' : 'none'}}>
       {todo.text}
     </Text>
-    <Button title="Done" onPress={() => toggleComplete(index)} />
+    {!todo.isComplete && (
+      <Button title="✓" onPress={() => toggleComplete(index)} />
+    )}
+    {todo.isComplete && (
+      <Button title="✓" onPress={() => toggleComplete(index)} />
+    )}
+    <Button title="X" onPress={() => remove(index)} />
   </View>
 );
 

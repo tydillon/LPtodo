@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Fragment, useState} from 'react';
 import ToDo from './src/Schema/ToDo';
 import Add from './src/Add/Add';
@@ -18,14 +10,8 @@ import {
   StatusBar,
 } from 'react-native';
 
-import {Header, Colors} from 'react-native/Libraries/NewAppScreen';
-
 const App = () => {
-  const [todos, setTodos] = useState([
-    {text: 'Learn about React', isCompleted: false},
-    {text: 'Meet friend for lunch', isCompleted: true},
-    {text: 'Build really cool todo app', isCompleted: false},
-  ]);
+  const [todos, setTodos] = useState([]);
 
   const addToDo = input => {
     setTodos([...todos, {text: input, isCompleted: false}]);
@@ -41,22 +27,29 @@ const App = () => {
     setTodos(current);
   };
 
+  const remove = index => {
+    const current = [...todos];
+    current.splice(index, 1);
+    setTodos(current);
+  };
+
   return (
     <Fragment>
       <StatusBar barStyle="dark-content" />
-
       <SafeAreaView style={styles.body}>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
           <View style={styles.app}>
             <View style={styles.todoList}>
+              <Text style={styles.title}>To-do list</Text>
               {todos.map((todo, index) => (
                 <ToDo
                   key={index}
                   index={index}
                   todo={todo}
                   toggleComplete={toggleComplete}
+                  remove={remove}
                 />
               ))}
               <Add addToDo={addToDo} />
@@ -84,6 +77,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#e8e8e8',
     borderRadius: 4,
     padding: '5%',
+  },
+  title: {
+    fontSize: 20,
+    alignSelf: 'center',
+    paddingBottom: 5,
   },
 });
 
