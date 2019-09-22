@@ -34,12 +34,10 @@ const App = () => {
   };
 
   return (
-    <Fragment>
+    <View>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={styles.body}>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
+      <SafeAreaView>
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
           <View style={styles.app}>
             <View style={styles.todoList}>
               <Text style={styles.title}>To-do list</Text>
@@ -57,31 +55,25 @@ const App = () => {
           </View>
         </ScrollView>
       </SafeAreaView>
-    </Fragment>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: '#209cee',
-  },
-  body: {
-    backgroundColor: '#209cee',
-  },
   app: {
-    backgroundColor: '#209cee',
     padding: '10%',
     paddingTop: '50%',
   },
   todoList: {
-    backgroundColor: '#e8e8e8',
+    backgroundColor: '#1f2561',
     borderRadius: 4,
     padding: '5%',
   },
   title: {
-    fontSize: 20,
+    fontSize: 40,
     alignSelf: 'center',
     paddingBottom: 5,
+    color: 'white',
   },
 });
 

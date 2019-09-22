@@ -19,7 +19,12 @@ const AddForm = ({addToDo}) => {
         value={value}
         onChangeText={text => setValue(text)}
       />
-      <Button title="Add new item" onPress={handleSubmit} />
+      <Button
+        style={styles.buttons}
+        title="Add new item"
+        color="white"
+        onPress={handleSubmit}
+      />
     </View>
   );
 };
@@ -30,5 +35,8 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: 'white',
     height: 30,
+  },
+  buttons: {
+    backgroundColor: 'white',
   },
 });
